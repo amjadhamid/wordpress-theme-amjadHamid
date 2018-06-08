@@ -1,0 +1,237 @@
+/// Makes an element's :before pseudoelement a FontAwesome icon.
+/// @param {string} $content Optional content value to use.
+/// @param {string} $where Optional pseudoelement to target (before or after).
+@mixin icon($content: false, $where: before) {
+
+	text-decoration: none;
+
+	&:#{$where} {
+
+		@if $content {
+			content: $content;
+		}
+
+		-moz-osx-font-smoothing: grayscale;
+		-webkit-font-smoothing: antialiased;
+		font-family: FontAwesome;
+		font-style: normal;
+		font-weight: normal;
+		text-transform: none !important;
+
+	}
+
+}
+
+/// Applies padding to an element, taking the current element-margin value into account.
+/// @param {mixed} $tb Top/bottom padding.
+/// @param {mixed} $lr Left/right padding.
+/// @param {list} $pad Optional extra padding (in the following order top, right, bottom, left)
+/// @param {bool} $important If true, adds !important.
+@mixin padding($tb, $lr, $pad: (0,0,0,0), $important: null) {
+
+	@if $important {
+		$important: '!important';
+	}
+
+	$x: 0.1em;
+
+	@if unit(_size(element-margin)) == 'rem' {
+		$x: 0.1rem;
+	}
+
+	padding: ($tb + nth($pad,1)) ($lr + nth($pad,2)) max($x, $tb - _size(element-margin) + nth($pad,3)) ($lr + nth($pad,4)) #{$important};
+
+}
+
+/// Encodes a SVG data URL so IE doesn't choke (via codepen.io/jakob-e/pen/YXXBrp).
+/// @param {string} $svg SVG data URL.
+/// @return {string} Encoded SVG data URL.
+@function svg-url($svg) {
+
+	$svg: str-replace($svg, '"', '\'');
+	$svg: str-replace($svg, '%', '%25');
+	$svg: str-replace($svg, '<', '%3C');
+	$svg: str-replace($svg, '>', '%3E');
+	$svg: str-replace($svg, '&', '%26');
+	$svg: str-replace($svg, '#', '%23');
+	$svg: str-replace($svg, '{', '%7B');
+	$svg: str-replace($svg, '}', '%7D');
+	$svg: str-replace($svg, ';', '%3B');
+
+	@return url("data:image/svg+xml;charset=utf8,#{$svg}");
+
+}
+
+
+
+
+
+// mixin
+@mixin minMedium {
+	 @media (min-width: 992px){
+		 @content;
+	 }
+}
+
+
+// mixin new examble overlay
+@mixin overlay{
+position: absolute; 
+left : 0;
+top:0;
+width: 100%;
+height: 100%;
+}
+
+// mixin new examble prefixer
+
+@mixin prefixer($property , $value , $prefixer :()){
+	$@each $prefix in $prefixer{
+		#{'-' + $prefix  + '-' + $property}: $value ;  
+	}
+	#{$property}: $value;
+}
+
+// mixin new examble animation
+@mixin KeyFrame($animation-name){
+    @-webkit-keyframe #{$animation-name}{
+		@content ;
+	}
+  @-moz-keyframe #{$animation-name}{
+		@content ;
+	}
+	  @keyframe #{$animation-name}{
+		@content ;
+	}
+}
+
+
+// mixin opacity
+@mixin opacity($value){ 
+ zoom: 1;
+ $opacity-ie : $value * 100 ;
+ filter: lapha(opacity = $opacity-ie);
+ opacity: $value;
+  
+}
+
+
+// mixin
+@mixin transition($args...){
+	-webkit-transition :$args;
+    -moz-transition :$args;
+	-o-transition :$args;
+	transition :$args;
+}
+
+
+
+
+/*
+ ** Prefix CSS3 Properties
+ ** Accept Arguments => Property Name, Property Values, Vendor Prefixes
+ ** Example: @include prefixer(transition, all .3s ease, webkit moz o)
+ */
+
+  @mixin prefixer($property, $value, $prefixes: ()) {
+    @each $prefix in $prefixes {
+      #{'-' + $prefix + '-' + $property}: $value;
+    }
+    #{$property}: $value;
+  }
+  
+  /*
+ ** Opacity Mixin For All Browsers
+ ** Accept Argument => Property Value
+ ** Example: @include opacity(.5)
+ */
+
+ @mixin opacity($value) {
+   zoom: 1;
+   $opacity-ie: $value * 100;
+   filter: alpha(opacity = $opacity-ie);
+   opacity: $value;
+ }
+
+/*
+ ** Animation Mixin For All Browser
+ ** Accept Argument => Animation Name
+ ** Example: @include keyframes(SlideUpAndDown)
+ */
+
+ @mixin keyframes($name) {
+   @-webkit-keyframes #{$name} {
+     @content;
+   }
+   @-moz-keyframes #{$name} {
+     @content;
+   }
+   @keyframes #{$name} {
+     @content;
+   }
+ }
+
+/*
+ ** Overlay Mixin
+ ** Accept Argument => Color
+ ** Example: @include overlay(black, .5);
+ */
+
+@mixin overlay($color, $opacity) {
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba($color, $opacity);
+}
+
+/*
+ ** Center Element Horizontally and Vertically
+ ** Accept No Arguments
+ ** Example: @include centerer();
+ */
+
+@mixin centerer() {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  @include prefixer(transform, translate(-50%, -50%), webkit moz o);
+}
+
+/*
+ ** Circle Mixin
+ ** Accept Argument => Dimensions
+ ** Example: @include circle(100px);
+ */
+
+@mixin circle($dimension) {
+  width: $dimension;
+  height: $dimension;
+  border-radius: 50%;
+}
+
+/*
+ ** Placeholder Mixin
+ ** Accept No Arguments
+ ** Example: @include placeholder( Add Properties Here );
+ */
+
+ @mixin placeholder() {
+   ::-webkit-input-placeholder {@content};
+   ::-moz-placeholder          {@content};
+   :-ms-input-placeholder      {@content};
+   :-moz-placeholder           {@content};
+ }
+
+ /*
+  ** Background Cover Mixin
+  ** Accept No Arguments
+  ** Example: @include cover();
+  */
+
+ @mixin cover() {
+  @include prefixer(background-size, cover, webkit moz o);
+  background-position: center center;
+  background-repeat: no-repeat;
+}

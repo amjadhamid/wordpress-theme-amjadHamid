@@ -1,0 +1,424 @@
+/* Form */
+
+	form {
+		margin: 0 0 _size(element-margin) 0;
+	}
+
+	input[type="text"],
+	input[type="password"],
+	input[type="email"],
+	input[type="tel"],
+	input[type="search"],
+	input[type="url"],
+	select,
+	textarea {
+		@include vendor('appearance', 'none');
+		border-radius: _size(border-radius);
+		border: none;
+		border: solid 1px;
+		color: inherit;
+		display: block;
+		outline: 0;
+		padding: 0 1rem;
+		text-decoration: none;
+		width: 100%;
+
+		&:invalid {
+			box-shadow: none;
+		}
+	}
+
+	label {
+		display: block;
+		font-size: 1rem;
+		font-weight: _font(weight-bold);
+		margin: 0 0 (_size(element-margin) * 0.5) 0;
+	}
+
+	input[type="text"],
+	input[type="password"],
+	input[type="email"],
+	input[type="tel"],
+	input[type="search"],
+	input[type="url"] {
+		height: _size(element-height);
+	}
+
+	select {
+		background-size: 1.25rem;
+		background-repeat: no-repeat;
+		background-position: calc(100% - 1rem) center;
+		height: _size(element-height);
+		padding-right: _size(element-height);
+		text-overflow: ellipsis;
+
+		&:focus {
+			&::-ms-value {
+				background-color: transparent;
+			}
+		}
+
+		&::-ms-expand {
+			display: none;
+		}
+	}
+
+	textarea {
+		padding: 0.75rem 1rem;
+	}
+
+	input[type="checkbox"],
+	input[type="radio"], {
+		@include vendor('appearance', 'none');
+		display: block;
+		float: left;
+		margin-right: -2rem;
+		opacity: 0;
+		width: 1rem;
+		z-index: -1;
+
+		& + label {
+			@include icon;
+			cursor: pointer;
+			display: inline-block;
+			font-size: 1rem;
+			font-weight: _font(weight);
+			padding-left: (_size(element-height) * 0.6) + 0.875rem;
+			padding-right: 0.875rem;
+			position: relative;
+
+			&:before {
+				border-radius: _size(border-radius);
+				border: solid 1px;
+				content: '';
+				display: inline-block;
+				height: (_size(element-height) * 0.6);
+				left: 0;
+				line-height: (_size(element-height) * 0.575);
+				position: absolute;
+				text-align: center;
+				top: (_size(element-height) * -0.05);
+				width: (_size(element-height) * 0.6);
+			}
+		}
+
+		&:checked + label {
+			&:before {
+				content: '\f00c';
+			}
+		}
+	}
+
+	input[type="checkbox"] {
+		& + label {
+			&:before {
+				border-radius: _size(border-radius);
+			}
+		}
+	}
+
+	input[type="radio"] {
+		& + label {
+			&:before {
+				border-radius: 100%;
+			}
+		}
+	}
+
+	::-webkit-input-placeholder {
+		opacity: 1.0;
+	}
+
+	:-moz-placeholder {
+		opacity: 1.0;
+	}
+
+	::-moz-placeholder {
+		opacity: 1.0;
+	}
+
+	:-ms-input-placeholder {
+		opacity: 1.0;
+	}
+
+	@mixin color-form($p: null) {
+		$highlight: _palette($p, highlight);
+
+		label {
+			color: _palette($p, fg-bold);
+		}
+
+		input[type="text"],
+		input[type="password"],
+		input[type="email"],
+		input[type="tel"],
+		input[type="search"],
+		input[type="url"],
+		select,
+		textarea {
+			background-color: _palette($p, border-bg);
+			border-color: _palette($p, border);
+
+			&:focus {
+				@if $p == $highlight {
+					border-color: _palette($p, fg-bold);
+					box-shadow: 0 0 0 1px _palette($p, fg-bold);
+				}
+				@else {
+					border-color: _palette(accent1, bg);
+					box-shadow: 0 0 0 1px _palette(accent1, bg);
+				}
+			}
+		}
+
+		select {
+			background-image: svg-url("<svg xmlns='http://www.w3.org/2000/svg' width='40' height='40' preserveAspectRatio='none' viewBox='0 0 40 40'><path d='M9.4,12.3l10.4,10.4l10.4-10.4c0.2-0.2,0.5-0.4,0.9-0.4c0.3,0,0.6,0.1,0.9,0.4l3.3,3.3c0.2,0.2,0.4,0.5,0.4,0.9 c0,0.4-0.1,0.6-0.4,0.9L20.7,31.9c-0.2,0.2-0.5,0.4-0.9,0.4c-0.3,0-0.6-0.1-0.9-0.4L4.3,17.3c-0.2-0.2-0.4-0.5-0.4-0.9 c0-0.4,0.1-0.6,0.4-0.9l3.3-3.3c0.2-0.2,0.5-0.4,0.9-0.4S9.1,12.1,9.4,12.3z' fill='#{_palette($p, border)}' /></svg>");
+
+			option {
+				color: _palette($p, fg);
+				background-color: _palette($p, bg);
+			}
+		}
+
+		input[type="checkbox"],
+		input[type="radio"], {
+			& + label {
+				color: _palette($p, fg);
+
+				&:before {
+					background: _palette($p, border-bg);
+					border-color: _palette($p, border);
+				}
+			}
+
+			&:checked + label {
+				&:before {
+					@if $p == $highlight {
+						background-color: _palette($p, fg-bold);
+						border-color: _palette($p, fg-bold);
+						color: _palette($p, bg);
+					}
+					@else {
+						background-color: _palette(accent1, bg);
+						border-color: _palette(accent1, bg);
+						color: _palette(accent1, fg-bold);
+					}
+				}
+			}
+
+			&:focus + label {
+				&:before {
+					@if $p == $highlight {
+						border-color: _palette($p, fg-bold);
+						box-shadow: 0 0 0 1px _palette($p, fg-bold);
+					}
+					@else {
+						border-color: _palette(accent1, bg);
+						box-shadow: 0 0 0 1px _palette(accent1, bg);
+					}
+				}
+			}
+		}
+
+		::-webkit-input-placeholder {
+			color: _palette($p, fg-light) !important;
+		}
+
+		:-moz-placeholder {
+			color: _palette($p, fg-light) !important;
+		}
+
+		::-moz-placeholder {
+			color: _palette($p, fg-light) !important;
+		}
+
+		:-ms-input-placeholder {
+			color: _palette($p, fg-light) !important;
+		}
+	}
+
+	@include color-form;
+
+/*
+	form {
+  
+  /* ... */
+
+  > div {
+    > input[type="text"],
+    > input[type="email"],
+    > input[type="password"] {
+
+      &:focus {
+        & + label {
+          opacity: 0;
+        }
+      }
+
+    }
+  }
+}
+
+
+/*
+
+form {
+
+    > input[type="text"],
+    > input[type="email"],
+    > input[type="password"] {
+      
+      // show success!
+      &:valid {
+        background: url(images/check.svg);
+        background-size: 20px;
+        background-repeat: no-repeat;
+        background-position: 20px 20px;
+
+        // continue to hide the label
+        & + label {
+          opacity: 0;
+        }
+      }
+    }
+  }
+}
+*/
+
+
+
+/*
+
+@import url(https://fonts.googleapis.com/css?family=PT+Sans:400,700);
+
+form {
+  max-width: 450px;
+  margin: 0 auto;
+  
+  // positioning context
+  > div {
+    position: relative;
+    background: white;
+    border-bottom: 1px solid #ccc;
+    
+    // Looks like placeholder
+    > label {
+      opacity: 0.3;
+      font-weight: bold;
+      position: absolute;
+      top: 22px;
+      left: 20px;
+    }
+    
+    > input[type="text"],
+    > input[type="email"],
+    > input[type="password"] {
+      width: 100%;
+      border: 0;
+      padding: 20px 20px 20px 50px;
+      background: #eee;
+      
+      &:focus {
+        
+        // removing default focus style
+        outline: 0;
+        // adding new one
+        background: white;
+        
+        & + label {
+          opacity: 0;
+        }
+      }
+      
+      &:valid {
+        background: url(https://s3-us-west-2.amazonaws.com/s.cdpn.io/3/check.svg);
+        background-size: 20px;
+        background-repeat: no-repeat;
+        background-position: 20px 20px;
+        & + label {
+          opacity: 0;
+        }
+      }
+      
+      &:invalid:not(:focus):not(:placeholder-shown) {
+        background: pink;
+        & + label {
+          opacity: 0;
+        }
+      }
+      
+      &:invalid:focus:not(:placeholder-shown) {
+        & ~ .requirements {
+          max-height: 200px;
+          padding: 0 30px 20px 50px;
+        }
+      }
+      
+    }
+    
+    .requirements {
+      padding: 0 30px 0 50px;
+      color: #999;
+      max-height: 0;
+      transition: 0.28s;
+      overflow: hidden;
+      color: red;
+      font-style: italic;
+    }
+    
+  }
+  
+  input[type="submit"] {
+    display: block;
+    width: 100%;
+    margin: 20px 0;
+    background: #41D873;
+    color: white;
+    border: 0;
+    padding: 20px;
+    font-size: 1.2rem;
+  }
+  
+}
+
+body {
+  background: #333;
+  font-family: 'PT Sans', sans-serif;
+  padding: 20px;
+}
+* {
+  box-sizing: border-box;
+}
+
+<form action="#0">
+
+  <div>
+    <input type="text" id="first_name" name="first_name" required placeholder=" " />
+    <label for="first_name">First Name</label>
+  </div>
+  
+  <div>
+    <input type="text" id="last_name" name="last_name" required placeholder=" " />
+    <label for="last_name">Last Name</label>
+  </div>
+  
+  <div>
+    <input type="email" id="email" name="email" required placeholder=" " />
+    <label for="email">Email Address</label>
+    <div class="requirements">
+      Must be a valid email address.
+    </div>
+  </div>
+  
+  <div>
+    <input type="password" id="password" name="password" required placeholder=" " pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{6,}" />
+    <label for="password">Password</label>
+    <div class="requirements">
+      Your password must be at least 6 characters as well as contain at least one uppercase, one lowercase, and one number.
+    </div>
+  </div>
+  
+  <input type="submit" value="Sign Up" />
+
+</form>
+*/

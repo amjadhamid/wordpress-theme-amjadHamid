@@ -1,0 +1,328 @@
+@import 'libs/vars';
+@import 'libs/functions';
+@import 'libs/mixins';
+@import 'libs/vendor';
+@import 'libs/breakpoints';
+@import 'libs/grid';
+@import 'libs/flexgrid';
+@import 'font-awesome.min.css';
+@import url('https://fonts.googleapis.com/css?family=Raleway:200,300,400,500,600');
+
+/*
+	Industrious by TEMPLATED
+	templated.co @templatedco
+	Released for free under the Creative Commons Attribution 3.0 license (templated.co/license)
+*/
+
+// Breakpoints.
+	@include breakpoints((
+		default:   (1681px,   null     ),
+		xlarge:    (1281px,   1680px   ),
+		large:     (981px,    1280px   ),
+		medium:    (737px,    980px    ),
+		small:     (481px,    736px    ),
+		xsmall:    (361px,    480px    ),
+		xxsmall:   (null,     360px    )
+	));
+
+// Color.
+	@mixin color($p) {
+		@include color-typography($p);
+		@include color-button($p);
+		@include color-form($p);
+		@include color-list($p);
+		@include color-table($p);
+		@include color-highlights($p);
+		@include color-testimonials($p);
+	}
+
+// Base.
+	@import 'base/page';
+	@import 'base/reset';
+	@import 'base/typography';
+
+// Component.
+	@import 'components/inner';
+	@import 'components/button';
+	@import 'components/form';
+	@import 'components/list';
+	@import 'components/table';
+	@import 'components/highlights';
+	@import 'components/testimonials';
+	@import 'components/actions';
+	@import 'components/grid';
+	@import 'components/icon';
+	@import 'components/icons';
+	@import 'components/image';
+	@import 'components/wrapper';
+
+// Layout.
+	@import 'layout/banner';
+	@import 'layout/cta';
+	@import 'layout/footer';
+	@import 'layout/header';
+	@import 'layout/heading';
+	@import 'layout/main';
+	@import 'layout/menu';
+
+//validaters
+@import "bourbon/validators/contains";
+@import "bourbon/validators/contains-falsy";
+@import "bourbon/validators/is-color";
+@import "bourbon/validators/is-length";
+@import "bourbon/validators/is-number";
+@import "bourbon/validators/is-size";
+
+//lib
+@import "bourbon/library/border-color";
+@import "bourbon/library/border-radius";
+@import "bourbon/library/border-style";
+@import "bourbon/library/border-width";
+@import "bourbon/library/buttons";
+@import "bourbon/library/clearfix";
+@import "bourbon/library/contrast-switch";
+@import "bourbon/library/ellipsis";
+@import "bourbon/library/font-face";
+@import "bourbon/library/font-stacks";
+@import "bourbon/library/hide-text";
+@import "bourbon/library/hide-visually";
+@import "bourbon/library/margin";
+@import "bourbon/library/modular-scale";
+@import "bourbon/library/overflow-wrap";
+@import "bourbon/library/padding";
+@import "bourbon/library/position";
+@import "bourbon/library/prefixer";
+@import "bourbon/library/shade";
+@import "bourbon/library/size";
+@import "bourbon/library/strip-unit";
+@import "bourbon/library/text-inputs";
+@import "bourbon/library/timing-functions";
+@import "bourbon/library/tint";
+@import "bourbon/library/triangle";
+@import "bourbon/library/value-prefixer";
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+//  show some proparity
+
+p {
+  @media (min-width: $minSmall){
+	  //sass propority
+	  background-color:rgba(#F00 , 1);
+  }
+ @include minMedium{
+     // sass mix
+	 color: green + #F00;
+ }
+  @media #{$minMedium}{
+	  color: green;
+  }
+
+}
+
+
+
+.product {
+   background-color : #EEE;
+   padding :19px ;
+   position: relative;
+    .overlay {
+		$include overlay;
+		  background-color:rgba(#F00 , 1);
+        color : #FFF;	
+	}
+
+
+}
+
+
+// nesting for css 
+
+.ele {
+	.child {
+		font:{
+			weight : bold;
+			size : 20px;
+			family : Arial;
+		}
+		border:{
+			right:1px solid ;
+			left: 2px;
+		}
+		padding: {
+			left : 10px ;
+			right : 10px;
+		}
+	}
+}
+
+// extend 
+//  this way will be in showen in css 
+.error {
+	color : red ;
+	font-weight : bold ;
+}
+.ELE {
+	$extend .error ;
+	font-size : 20px;
+
+}
+
+
+// placeholder
+// this will not be show in css and html 
+%error {
+	color : red;
+	font-weight : bold;
+}
+.ELE {
+@extend %error;
+font-size:20px;
+
+}
+
+
+
+%a-href {
+            display:inline-block;
+            margin-top: 0.4em;
+        }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/* start my freamwork */
+.text-center{
+    text-align: center;
+
+}
+.container{
+    margin: auto ; 
+    
+}
+.clearfix{
+    clear :both;
+}
+
+/* visible in normal way must be hidden but in the size 
+which you wanted you change it to block */
+.visible-xs,
+.visible-sm,
+.visible-md,
+.visible-lg,{
+display:none;
+}
+
+
+.float-left{
+    float: left;
+    /* for arabic */
+    direction:rtl ;
+        display:inline-block; 
+
+}
+
+.float-right{
+    float: right;
+    direction:rtl ;
+    display:inline-block; 
+}
+
+
+.h1{
+    font-size:2em;
+}
+.padding-eng{
+    padding: 0 20px 0 0 ;
+}
+
+.padding-ara{
+    padding: 0 0 20px  0 ;
+}
+
+.responsive-pargraph{
+    line-height:1.8em
+}
+.responsive-image{
+    width:100%;
+}
+
+
+.list-unstiled{
+    margin: 0 ;
+     padding : 0;
+     list-style: none;
+}
+
+
+
+
+
+
+
+
+
+
+
+/**
+ * For modern browsers
+ * 1. The space content is one way to avoid an Opera bug when the
+ *    contenteditable attribute is included anywhere else in the document.
+ *    Otherwise it causes space to appear at the top and bottom of elements
+ *    that are clearfixed.
+ * 2. The use of `table` rather than `block` is only necessary if using
+ *    `:before` to contain the top-margins of child elements.
+ */
+.cf:before,
+.cf:after {
+    content: " "; /* 1 */
+    display: table; /* 2 */
+}
+
+.cf:after {
+    clear: both;
+}
+
+/**
+ * For IE 6/7 only
+ * Include this rule to trigger hasLayout and contain floats.
+ */
+.cf {
+    *zoom: 1;
+}
+/* end my freamwork */
+
+
+
