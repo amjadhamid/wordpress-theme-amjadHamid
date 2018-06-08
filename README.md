@@ -1,0 +1,2 @@
+# BootstrapWordpress
+# wordpress-theme-amjadHamid
